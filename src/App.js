@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
+import playerData from '../src/Data/data.json'
+import ShowPlayer from "./Components/ShowPlayer/ShowPlayer";
+import Addedplayers from "./Components/AddedPlayers/Addedplayers";
 
 function App() {
+  const [data, setData] = useState([])
+  const [players, setPlayers] = useState([])
+
+
+  useEffect(() => {
+    setData(playerData)
+  }, [])
+
+  const handleClick = (player) =>{
+    console.log('this is clicked', player)
+    const playerList = [...players, player]
+    setPlayers(playerList)
+  }
+
+  console.log(players)
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ShowPlayer className = 'flex1' players = {data} handleClick = {handleClick}></ShowPlayer>
+      <Addedplayers className="flex2" addedPlayers = {players}></Addedplayers>
     </div>
   );
 }
